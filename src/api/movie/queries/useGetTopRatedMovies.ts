@@ -4,22 +4,22 @@ import {
   UseQueryResult,
 } from "@tanstack/react-query";
 import { MovieAPI, MovieTypes } from "..";
-import { DEFAULT_LANGUAGE } from "../api";
+import { DEFAULT_LANGUAGE } from "../constants";
 import { movieDataKeys } from "../key-factory";
 
 export const useGetTopRatedMovies = (
   page: number,
   options?: UseQueryOptions<
-    MovieTypes.TopRatedMovieResult | undefined,
+    MovieTypes.MovieListResult | undefined,
     Error,
-    MovieTypes.TopRatedMovieResult | undefined,
+    MovieTypes.MovieListResult | undefined,
     readonly [string, number, string]
   >,
-): UseQueryResult<MovieTypes.TopRatedMovieResult | undefined, Error> => {
+): UseQueryResult<MovieTypes.MovieListResult | undefined, Error> => {
   return useQuery<
-    MovieTypes.TopRatedMovieResult | undefined,
+    MovieTypes.MovieListResult | undefined,
     Error,
-    MovieTypes.TopRatedMovieResult | undefined,
+    MovieTypes.MovieListResult | undefined,
     readonly [string, number, string]
   >(
     movieDataKeys.getTopRated(page, DEFAULT_LANGUAGE),

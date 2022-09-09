@@ -1,4 +1,4 @@
-import { StyleProp, TextStyle, ViewStyle } from "react-native";
+import { TextStyle, ViewStyle } from "react-native";
 import "styled-components";
 
 declare module "styled-components/native" {
@@ -9,23 +9,26 @@ declare module "styled-components/native" {
       large: string;
     };
     shadow: {
-      default: StyleProp<ViewStyle>;
+      default: ViewStyle;
     };
     fonts: {
-      h1: StyleProp<TextStyle>;
-      h2: StyleProp<TextStyle>;
-      h3: StyleProp<TextStyle>;
-      p1: StyleProp<TextStyle>;
-      p2: StyleProp<TextStyle>;
-      p3: StyleProp<TextStyle>;
+      h1: TextStyle;
+      h2: TextStyle;
+      h3: TextStyle;
+      p1: TextStyle;
+      p2: TextStyle;
+      p3: TextStyle;
     };
     colors: {
       primary: string;
       background: string;
       textDark: string;
       textRed: string;
+      border: string;
+      black: string;
+      shadow: string;
       textLight: string;
-      borderColor: string;
+      border: string;
       disabled: string;
       transparent: string;
       paper: string;

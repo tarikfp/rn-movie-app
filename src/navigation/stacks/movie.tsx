@@ -24,20 +24,20 @@ const movieStackRoutesType: Array<
   {
     name: RouteNames.moveList,
     component: MovieListScreen as React.ComponentType,
+    options: {
+      headerTitle: "Movie list",
+    },
   },
   {
     name: RouteNames.movieDetail,
     component: MovieDetailScreen as React.ComponentType,
+    options: { headerTitle: "Movie detail" },
   },
 ];
 
-function AuthStack() {
+function MovieStack() {
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}
-      initialRouteName={RouteNames.moveList}>
+    <Stack.Navigator initialRouteName={RouteNames.moveList}>
       {movieStackRoutesType.map((routes) => (
         <Stack.Screen key={routes.name} {...routes} />
       ))}
@@ -45,4 +45,4 @@ function AuthStack() {
   );
 }
 
-export default AuthStack;
+export default MovieStack;

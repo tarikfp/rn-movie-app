@@ -1,4 +1,4 @@
-export interface TopRatedMovieResult {
+export interface MovieListResult {
   page: number;
   results: Result[];
   total_pages: number;
@@ -82,4 +82,8 @@ export interface MovieEntry {
 
 export type MovieGenreListResult = {
   genres: Genre[];
+};
+
+export type MoviesByGenre = MovieListResult & {
+  genre: Genre;
 };
