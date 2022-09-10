@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>MovieApp.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>arm64</string>
+			</array>
+			<key>buildNumber</key>
+			<string>1</string>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>4E35F329AE7B1515D000D8FC84647ACD8E127C3C</string>
+				<key>dateExpires</key>
+				<string>3.07.2023</string>
+				<key>type</key>
+				<string>Apple Development</string>
+			</dict>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>3Y595Z949W.org.reactjs.native.example.MovieApp</string>
+				<key>com.apple.developer.team-identifier</key>
+				<string>3Y595Z949W</string>
+				<key>get-task-allow</key>
+				<true/>
+			</dict>
+			<key>name</key>
+			<string>MovieApp.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>fe1a61d9-62a1-4f2c-9722-95cbf88a62f0</string>
+				<key>dateExpires</key>
+				<string>4.09.2023</string>
+				<key>name</key>
+				<string>iOS Team Provisioning Profile: *</string>
+			</dict>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>3Y595Z949W</string>
+				<key>name</key>
+				<string>Tarik Fatih PINARCI</string>
+			</dict>
+			<key>versionNumber</key>
+			<string>1.0</string>
+		</dict>
+	</array>
+</dict>
+</plist>
