@@ -1,7 +1,8 @@
 import { Icon } from "@tarikfp/react-native-utils";
 import React from "react";
-import { Alert, Pressable, Text } from "react-native";
+import { Alert, Platform, Pressable, Text } from "react-native";
 import { showMessage } from "react-native-flash-message";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ms } from "react-native-size-matters";
 import { useGetMovieDetailById } from "~api/movie";
 import { Badge } from "~components/badge";
@@ -12,13 +13,13 @@ import {
   Spacing,
 } from "~components/layout";
 import { Loader } from "~components/loader";
-import { AppStatusBar } from "~components/status-bar";
 import { VoteSection } from "~components/vote-section";
 import { RouteNames } from "~navigation/route-names";
 import { MovieStackScreenProps } from "~navigation/types";
 import { useMovieWishListStore } from "~store";
 import { theme } from "~theme";
 import { getImageSourceUri } from "~utils";
+import { AppStatusBar } from "../../components/status-bar";
 import * as MovieDetailHelpers from "./helpers";
 import {
   MovieImageBackground,
@@ -36,7 +37,7 @@ export default function MovieDetailScreen({
   route,
 }: MovieStackScreenProps<RouteNames.movieDetail>) {
   const [imageLoading, setImageLoading] = React.useState<boolean>(false);
-
+  const { top } = useSafeAreaInsets();
   const { data, isLoading, isError, isSuccess } = useGetMovieDetailById(
     route.params.movieId,
   );
@@ -97,11 +98,14 @@ export default function MovieDetailScreen({
         onLoadStart={() => setImageLoading(true)}
         onLoadEnd={() => setImageLoading(false)}
         source={{ uri: getImageSourceUri(data.poster_path, true, 500) }}>
-        <AppStatusBar backgroundColor={theme.colors.transparent} />
+        {Platform.OS === "ios" && (
+          <AppStatusBar backgroundColor={theme.colors.transparent} />
+        )}
 
         <GenericView
           backgroundColor={theme.colors.transparent}
           paddingHorizontal={8}
+          marginTop={top}
           flexDirection="row"
           justifyContent="space-between">
           <Pressable onPress={navigation.goBack}>

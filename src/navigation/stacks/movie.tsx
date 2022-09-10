@@ -3,8 +3,10 @@ import {
   createStackNavigator,
   StackNavigationEventMap,
   StackNavigationOptions,
+  TransitionPresets,
 } from "@react-navigation/stack";
 import * as React from "react";
+import { Platform } from "react-native";
 import { MovieDetailScreen } from "~screens/movie-detail";
 import { MovieListScreen } from "~screens/movie-list";
 import { RouteNames } from "../route-names";
@@ -26,12 +28,20 @@ const movieStackRoutesType: Array<
     component: MovieListScreen as React.ComponentType,
     options: {
       headerTitle: "Movie list",
+      headerTitleAlign: "center",
     },
   },
   {
     name: RouteNames.movieDetail,
     component: MovieDetailScreen as React.ComponentType,
-    options: { headerShown: false },
+    options: {
+      headerShown: false,
+      headerTitleAlign: "center",
+      ...Platform.select({
+        android: TransitionPresets.BottomSheetAndroid,
+        ios: TransitionPresets.ModalSlideFromBottomIOS,
+      }),
+    },
   },
 ];
 

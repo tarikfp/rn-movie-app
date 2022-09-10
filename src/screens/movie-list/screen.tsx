@@ -16,9 +16,9 @@ import MovieCarousel from "~components/movie-carousel/component";
 import { AppSafeAreaView } from "~components/safe-area";
 import { RouteNames } from "~navigation/route-names";
 import { MovieStackScreenProps } from "~navigation/types";
+import { useMovieWishListStore } from "~store";
 import { theme } from "~theme";
-import { useMovieWishListStore } from "../../store";
-import { SelectCategoryCount } from "./components";
+import { CarouselActions } from "./components";
 import { DEFAULT_CATEGORY_TO_DISPLAY_COUNT } from "./constants";
 import * as MovieListHelpers from "./helpers";
 import useMovieListData from "./hooks";
@@ -31,6 +31,7 @@ function MovieListScreen({
   navigation,
 }: MovieStackScreenProps<RouteNames.moveList>) {
   const [displayFilter, setDisplayFilter] = React.useState<boolean>(false);
+  const [autoPlay, setAutoPlay] = React.useState<boolean>(false);
 
   const [isDrowdownOpen, setDropdownOpen] = React.useState<boolean>(false);
 
@@ -97,6 +98,7 @@ function MovieListScreen({
       return (
         <MovieCarousel
           key={genre.id}
+          autoPlay={autoPlay}
           order={index}
           carouselKey={genre.name}
           genre={genre}
@@ -105,14 +107,14 @@ function MovieListScreen({
         />
       );
     },
-    [renderCarouselItem],
+    [autoPlay, renderCarouselItem],
   );
 
   const renderItemSeparatorComponent = React.useCallback(() => {
     return <View style={{ height: 30 }} />;
   }, []);
 
-  if (isLoading) {
+  if (isLoading && !shouldRenderWishListMovies) {
     return (
       <FlexCenter>
         <Loader />
@@ -126,8 +128,10 @@ function MovieListScreen({
 
   return (
     <AppSafeAreaView edges={["bottom"]}>
-      {displayFilter && (
-        <SelectCategoryCount
+      {displayFilter && !shouldRenderWishListMovies && (
+        <CarouselActions
+          setAutoPlay={setAutoPlay}
+          autoPlay={autoPlay}
           categoryCountToDisplay={categoryCountToDisplay}
           isDropdownOpen={isDrowdownOpen}
           setCategoryCountToDisplay={setCategoryCountToDisplay}

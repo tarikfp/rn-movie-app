@@ -36,5 +36,5 @@ const Shadow = styled.View`
   shadow-opacity: 0.8;
   shadow-offset: 1px 3px;
   shadow-radius: 2px;
-  elevation: 2;
+  elevation: 1;
 `;

@@ -43,29 +43,23 @@ export default function MovieCarousel({
 
   React.useEffect(() => {
     const firstSelectedItemInd = Math.ceil(data.length / 2);
-    setActiveItemIndex(firstSelectedItemInd);
+    carouselRef.current?.snapToItem(firstSelectedItemInd);
   }, [data.length]);
 
   const onPressCarouselItem = React.useCallback(
     (index: number) => {
-      carouselRef.current?.snapToItem(index);
-
-      if (data.length === 1) {
-        navigation.navigate(RouteNames.movieDetail, {
-          movieId: data[0].id,
-          genre,
-        });
-        return;
-      }
-
-      if (index === activeItemIndex) {
-        navigation.navigate(RouteNames.movieDetail, {
-          movieId: data[index].id,
-          genre,
-        });
+      if (carouselRef.current && carouselRef.current.currentIndex > -1) {
+        if (carouselRef.current.currentIndex === index) {
+          navigation.navigate(RouteNames.movieDetail, {
+            movieId: data[carouselRef.current?.currentIndex].id,
+            genre,
+          });
+        } else {
+          carouselRef.current.snapToItem(index);
+        }
       }
     },
-    [activeItemIndex, data, genre, navigation],
+    [data, genre, navigation],
   );
 
   const memoizedRenderItem = React.useCallback(
@@ -82,10 +76,14 @@ export default function MovieCarousel({
         key={carouselKey}
         ref={carouselRef}
         autoplay={autoPlay}
-        loop={false}
+        loop={autoPlay}
         enableSnap
-        autoplayInterval={SLIDER_AUTO_PLAY_INTERVAL * (order + 1)}
-        autoplayDelay={SLIDER_AUTO_PLAY_DELAY * (order + 1)}
+        autoplayInterval={
+          autoPlay ? SLIDER_AUTO_PLAY_INTERVAL * (order + 1) : undefined
+        }
+        autoplayDelay={
+          autoPlay ? SLIDER_AUTO_PLAY_DELAY * (order + 1) : undefined
+        }
         layout="default"
         sliderWidth={getWindowWidth(100)}
         itemWidth={ms(180)}

@@ -16,7 +16,7 @@ export default function Badge({ label }: Props) {
 const BadgeContainer = styled.View`
   border-radius: 16px;
   height: 24px;
-  min-width: 105px;
+  min-width: 125px;
   margin-right: 6px;
   margin-top: 6px;
   justify-content: center;

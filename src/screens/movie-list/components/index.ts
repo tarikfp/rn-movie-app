@@ -1,1 +1,1 @@
-export { default as SelectCategoryCount } from "./select-category-count";
+export { default as CarouselActions } from "./carousel-actions";

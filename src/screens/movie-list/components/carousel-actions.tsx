@@ -1,23 +1,40 @@
 import * as React from "react";
+import { Switch } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
+import { GenericView } from "~components/layout";
 import { styled, theme } from "~theme";
 import { CATEGORY_COUNT_OPTIONS } from "../constants";
 
 type Props = {
   setDropdownOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setCategoryCountToDisplay: React.Dispatch<React.SetStateAction<number>>;
+  setAutoPlay: React.Dispatch<React.SetStateAction<boolean>>;
+  autoPlay: boolean;
   isDropdownOpen: boolean;
   categoryCountToDisplay: number;
 };
 
-export default function SelectCategoryCount({
+export default function CarouselActions({
   isDropdownOpen,
   setCategoryCountToDisplay,
   categoryCountToDisplay,
   setDropdownOpen,
+  setAutoPlay,
+  autoPlay,
 }: Props) {
   return (
     <>
+      <GenericView
+        backgroundColor={theme.colors.background}
+        flexDirection="row"
+        alignItems="center">
+        <DropdownText>Carousels auto play enabled</DropdownText>
+
+        <Switch
+          value={autoPlay}
+          onChange={() => setAutoPlay((prev) => !prev)}
+        />
+      </GenericView>
       <DropdownText>Category count to display</DropdownText>
       <DropDownPicker
         open={isDropdownOpen}
