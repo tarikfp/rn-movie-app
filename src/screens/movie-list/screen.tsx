@@ -1,6 +1,12 @@
 import { Icon } from "@tarikfp/react-native-utils";
 import * as React from "react";
-import { FlatList, ListRenderItemInfo, StyleSheet, View } from "react-native";
+import {
+  FlatList,
+  ListRenderItemInfo,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { ms } from "react-native-size-matters";
 import { MovieTypes } from "~api/movie";
 import { FlexCenter } from "~components/layout";
@@ -10,43 +16,71 @@ import MovieCarousel from "~components/movie-carousel/component";
 import { AppSafeAreaView } from "~components/safe-area";
 import { RouteNames } from "~navigation/route-names";
 import { MovieStackScreenProps } from "~navigation/types";
-import { theme } from "../../theme";
+import { theme } from "~theme";
+import { useMovieWishListStore } from "../../store";
 import { SelectCategoryCount } from "./components";
 import { DEFAULT_CATEGORY_TO_DISPLAY_COUNT } from "./constants";
+import * as MovieListHelpers from "./helpers";
 import useMovieListData from "./hooks";
 
+/**
+ * @description this screen is responsible for displaying movie list data
+ * from api and wish list movie list from mmkv/zustand storage
+ */
 function MovieListScreen({
   navigation,
-  route,
 }: MovieStackScreenProps<RouteNames.moveList>) {
   const [displayFilter, setDisplayFilter] = React.useState<boolean>(false);
+
   const [isDrowdownOpen, setDropdownOpen] = React.useState<boolean>(false);
+
   const [categoryCountToDisplay, setCategoryCountToDisplay] =
     React.useState<number>(DEFAULT_CATEGORY_TO_DISPLAY_COUNT);
 
-  const { moviesByGenreData, isLoading } = useMovieListData(
+  const [shouldRenderWishListMovies, setShouldRenderWishListMovies] =
+    React.useState<boolean>(false);
+
+  const wishListMovies = useMovieWishListStore((state) => state.wishListMovies);
+
+  const { moviesByGenreData, isLoading, error } = useMovieListData({
     categoryCountToDisplay,
-  );
+    enabled: !shouldRenderWishListMovies,
+  });
 
   React.useEffect(() => {
     navigation.setOptions({
+      headerLeft: (props) =>
+        !shouldRenderWishListMovies ? (
+          <Icon
+            {...props}
+            color={theme.colors.textLight}
+            size={ms(22)}
+            onPress={() => setDisplayFilter((prev) => !prev)}
+            name={!displayFilter ? "filter" : "filter-remove"}
+            type="MaterialCommunityIcons"
+            style={{ marginLeft: 16 }}
+          />
+        ) : null,
       headerRight: (props) => (
         <Icon
           {...props}
           color={theme.colors.textLight}
           size={ms(22)}
-          onPress={() => setDisplayFilter((prev) => !prev)}
-          name={!displayFilter ? "filter" : "filter-remove"}
+          onPress={() => setShouldRenderWishListMovies((prev) => !prev)}
+          name={shouldRenderWishListMovies ? "heart-remove" : "heart"}
           type="MaterialCommunityIcons"
           style={{ marginRight: 16 }}
         />
       ),
+      headerTitle: shouldRenderWishListMovies
+        ? "Wish list movies"
+        : "Movie list",
     });
-  }, [displayFilter, navigation]);
+  }, [displayFilter, navigation, shouldRenderWishListMovies]);
 
   const renderCarouselItem = React.useCallback(
     (
-      item: MovieTypes.Result,
+      item: MovieTypes.MovieListItem,
       index: number,
       onPressCarouselItem: () => void,
     ) => {
@@ -65,9 +99,9 @@ function MovieListScreen({
           key={genre.id}
           order={index}
           carouselKey={genre.name}
+          genre={genre}
           data={results}
           renderItem={renderCarouselItem}
-          genreName={genre.name}
         />
       );
     },
@@ -86,6 +120,10 @@ function MovieListScreen({
     );
   }
 
+  const finalMovieListData = shouldRenderWishListMovies
+    ? MovieListHelpers.mapWishListMoviesToMovieList(wishListMovies)
+    : moviesByGenreData;
+
   return (
     <AppSafeAreaView edges={["bottom"]}>
       {displayFilter && (
@@ -97,7 +135,7 @@ function MovieListScreen({
         />
       )}
 
-      {moviesByGenreData !== undefined && (
+      {finalMovieListData !== undefined ? (
         <FlatList
           bouncesZoom={false}
           showsVerticalScrollIndicator={false}
@@ -108,10 +146,14 @@ function MovieListScreen({
           style={styles.flatList}
           initialNumToRender={7}
           maxToRenderPerBatch={8}
-          data={moviesByGenreData}
+          data={finalMovieListData}
           renderItem={renderFlatListItem}
         />
-      )}
+      ) : error ? (
+        <FlexCenter>
+          <Text>Something went wrong...</Text>
+        </FlexCenter>
+      ) : null}
     </AppSafeAreaView>
   );
 }

@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import { getWindowWidth } from "@tarikfp/react-native-utils";
 import React from "react";
 import { ListRenderItemInfo } from "react-native";
@@ -5,16 +6,17 @@ import { ms } from "react-native-size-matters";
 import Carousel from "react-native-snap-carousel";
 import styled from "styled-components/native";
 import { MovieTypes } from "~api/movie";
+import { RouteNames } from "~navigation/route-names";
+import { MovieStackScreenProps } from "~navigation/types";
 
 type Props = {
   carouselKey: string;
-  // programatically auto play sliders if needed
   autoPlay?: boolean;
-  genreName: string;
+  genre: MovieTypes.Genre;
   order: number;
-  data: Array<MovieTypes.Result>;
+  data: Array<MovieTypes.MovieListItem>;
   renderItem: (
-    item: MovieTypes.Result,
+    item: MovieTypes.MovieListItem,
     index: number,
     onPressCarouselItem: () => void,
   ) => React.ReactElement;
@@ -28,17 +30,46 @@ export default function MovieCarousel({
   data,
   order,
   autoPlay = false,
-  genreName,
+  genre,
   renderItem,
 }: Props) {
-  const carouselRef = React.useRef<Carousel<MovieTypes.Result> | null>(null);
+  const [activeItemIndex, setActiveItemIndex] = React.useState<number>(0);
+  const navigation =
+    useNavigation<MovieStackScreenProps<RouteNames.moveList>["navigation"]>();
 
-  const onPressCarouselItem = React.useCallback((index: number) => {
-    carouselRef.current?.snapToItem(index);
-  }, []);
+  const carouselRef = React.useRef<Carousel<MovieTypes.MovieListItem> | null>(
+    null,
+  );
+
+  React.useEffect(() => {
+    const firstSelectedItemInd = Math.ceil(data.length / 2);
+    setActiveItemIndex(firstSelectedItemInd);
+  }, [data.length]);
+
+  const onPressCarouselItem = React.useCallback(
+    (index: number) => {
+      carouselRef.current?.snapToItem(index);
+
+      if (data.length === 1) {
+        navigation.navigate(RouteNames.movieDetail, {
+          movieId: data[0].id,
+          genre,
+        });
+        return;
+      }
+
+      if (index === activeItemIndex) {
+        navigation.navigate(RouteNames.movieDetail, {
+          movieId: data[index].id,
+          genre,
+        });
+      }
+    },
+    [activeItemIndex, data, genre, navigation],
+  );
 
   const memoizedRenderItem = React.useCallback(
-    ({ index, item }: ListRenderItemInfo<MovieTypes.Result>) => {
+    ({ index, item }: ListRenderItemInfo<MovieTypes.MovieListItem>) => {
       return renderItem(item, index, () => onPressCarouselItem(index));
     },
     [onPressCarouselItem, renderItem],
@@ -46,7 +77,7 @@ export default function MovieCarousel({
 
   return (
     <CarouselContainer>
-      <CategoryText>{genreName}</CategoryText>
+      <CategoryText>{genre.name}</CategoryText>
       <Carousel
         key={carouselKey}
         ref={carouselRef}
@@ -58,7 +89,8 @@ export default function MovieCarousel({
         layout="default"
         sliderWidth={getWindowWidth(100)}
         itemWidth={ms(180)}
-        firstItem={data.length / 2}
+        onSnapToItem={setActiveItemIndex}
+        firstItem={activeItemIndex}
         data={data}
         renderItem={memoizedRenderItem}
       />

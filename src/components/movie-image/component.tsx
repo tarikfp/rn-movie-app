@@ -1,6 +1,6 @@
 import * as React from "react";
 import FastImage, { FastImageProps } from "react-native-fast-image";
-import styled from "~theme/styled-theme";
+import { styled } from "~theme";
 
 type Props = FastImageProps & {
   height: number;

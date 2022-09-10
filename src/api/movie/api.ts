@@ -4,7 +4,7 @@ import { DEFAULT_LANGUAGE } from "./constants";
 import { generateMoviesByGenreIdsUrl } from "./factory";
 import {
   Genre,
-  MovieEntry,
+  MovieDetailEntry,
   MovieGenreListResult,
   MovieListResult,
   MoviesByGenre,
@@ -27,7 +27,11 @@ export const getTopRatedMovies = async (
 };
 
 export const getMovieDetailById = async (movieId: number) => {
-  return (await movieAxios.get<MovieEntry>(`movie/${movieId}`)).data;
+  return (
+    await movieAxios.get<MovieDetailEntry>(
+      `movie/${movieId}?api_key=${MOVIE_API_V3_KEY}`,
+    )
+  ).data;
 };
 
 export const getMovieGenreList = async () => {

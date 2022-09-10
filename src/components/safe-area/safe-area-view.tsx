@@ -3,7 +3,7 @@ import {
   NativeSafeAreaViewProps,
   SafeAreaView,
 } from "react-native-safe-area-context";
-import styled from "~theme/styled-theme";
+import { styled } from "~theme";
 
 type Props = React.PropsWithChildren<NativeSafeAreaViewProps>;
 

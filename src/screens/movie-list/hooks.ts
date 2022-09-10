@@ -1,38 +1,55 @@
 import { Alert } from "react-native";
+import { ErrorService } from "~api/error";
 import { MovieTypes, useGetMovieGenreList } from "~api/movie";
-import { useGetMoviesByGenreIds } from "~api/movie/queries/useGetMoviesByGenreIds";
+import { useGetMoviesByGenreIds } from "~api/movie/queries";
 import { DEFAULT_PAGE } from "./constants";
 
-export default function useMovieListData(categoryToDisplayCount: number) {
+export default function useMovieListData({
+  categoryCountToDisplay,
+  enabled,
+}: {
+  categoryCountToDisplay: number;
+  enabled: boolean;
+}) {
   const {
     data: genreListData,
-    isError: genreListIsError,
     isSuccess: genreListIsSuccess,
     error: genreListError,
     isLoading: genreListIsLoading,
-  } = useGetMovieGenreList();
+  } = useGetMovieGenreList({ enabled });
 
   const {
     data: moviesByGenreData,
-    isError: moviesByGenreIsError,
     error: moviesByGenreError,
     isLoading: moviesByGenreIsLoading,
   } = useGetMoviesByGenreIds(
     DEFAULT_PAGE,
     (genreListData?.genres as Array<MovieTypes.Genre>)?.slice(
       0,
-      categoryToDisplayCount,
+      categoryCountToDisplay,
     ) ?? [],
     {
-      enabled: Array.isArray(genreListData?.genres) && genreListIsSuccess,
+      enabled:
+        enabled && Array.isArray(genreListData?.genres) && genreListIsSuccess,
     },
   );
 
-  if (genreListIsError || moviesByGenreIsError) {
-    Alert.alert("Error", "Something went wrong...");
+  if (moviesByGenreError || genreListError) {
+    const error = moviesByGenreError || genreListError;
+
+    if (ErrorService.isBadRequestError(error)) {
+      Alert.alert("Error", "Bad request");
+    }
+    if (ErrorService.isInvalidAPIKeyError(error)) {
+      Alert.alert("Error", "Invalid API key");
+    }
   }
 
   const isLoading = moviesByGenreIsLoading || genreListIsLoading;
 
-  return { moviesByGenreData, isLoading };
+  return {
+    moviesByGenreData,
+    isLoading,
+    error: moviesByGenreError || genreListError,
+  };
 }

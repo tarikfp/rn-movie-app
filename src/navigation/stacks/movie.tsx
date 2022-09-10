@@ -31,7 +31,7 @@ const movieStackRoutesType: Array<
   {
     name: RouteNames.movieDetail,
     component: MovieDetailScreen as React.ComponentType,
-    options: { headerTitle: "Movie detail" },
+    options: { headerShown: false },
   },
 ];
 

@@ -1,7 +1,6 @@
 import * as React from "react";
 import DropDownPicker from "react-native-dropdown-picker";
-import styled from "~theme/styled-theme";
-import { theme } from "../../../theme";
+import { styled, theme } from "~theme";
 import { CATEGORY_COUNT_OPTIONS } from "../constants";
 
 type Props = {

@@ -1,11 +1,11 @@
 export interface MovieListResult {
   page: number;
-  results: Result[];
+  results: MovieListEntry[];
   total_pages: number;
   total_results: number;
 }
 
-export interface Result {
+export interface MovieListEntry {
   adult: boolean;
   backdrop_path: string;
   genre_ids: number[];
@@ -52,7 +52,7 @@ export interface SpokenLanguage {
   name: string;
 }
 
-export interface MovieEntry {
+export interface MovieDetailEntry {
   adult: boolean;
   backdrop_path: string;
   belongs_to_collection: BelongsToCollection;
@@ -84,6 +84,18 @@ export type MovieGenreListResult = {
   genres: Genre[];
 };
 
-export type MoviesByGenre = MovieListResult & {
+/**
+ * @description
+ * required props for displaying carousel item in list screen
+ */
+export type MovieListItem = Pick<
+  MovieListEntry,
+  "backdrop_path" | "original_title" | "vote_average" | "vote_count" | "id"
+>;
+
+export type MoviesByGenre = {
+  results: Array<MovieListItem>;
   genre: Genre;
 };
+
+export type WishListMovie = MovieListItem & { genre: Genre };
