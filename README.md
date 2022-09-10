@@ -40,5 +40,5 @@ or for android
 ## App binaries
 
 - [Android](https://drive.google.com/file/d/1mZ9tAUxSPqhMjRNMYU__pxUCsySAfvWe/view?usp=sharing)
-- [iOS](https://drive.google.com/file/d/1s7smsqdLNDjbYNqduPAFO-4qwhbixEuT/view?usp=sharing)
+- [iOS](https://drive.google.com/file/d/1VEtw-xExa0mxPo-GNWKfJx1WH7JXCG1o/view?usp=sharing)
 
