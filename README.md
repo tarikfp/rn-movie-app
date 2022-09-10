@@ -36,3 +36,9 @@ or for android
 ```bash
   yarn run android
 ```
+
+## App binaries
+
+- [Android](https://drive.google.com/file/d/1mZ9tAUxSPqhMjRNMYU__pxUCsySAfvWe/view?usp=sharing)
+- [iOS](https://drive.google.com/file/d/1s7smsqdLNDjbYNqduPAFO-4qwhbixEuT/view?usp=sharing)
+
