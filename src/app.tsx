@@ -4,6 +4,7 @@ import {
 } from "@react-navigation/native";
 import { QueryClientProvider } from "@tanstack/react-query";
 import React, { useRef } from "react";
+import FlashMessage from "react-native-flash-message";
 import { ThemeProvider } from "styled-components";
 import { AppSafeAreaProvider } from "./components/safe-area";
 import { default as RootNavigator } from "./navigation/root-navigator";
@@ -30,6 +31,7 @@ function App() {
           </ErrorBoundary>
         </AppSafeAreaProvider>
       </ThemeProvider>
+      <FlashMessage position="bottom" />
     </QueryClientProvider>
   );
 }

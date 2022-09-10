@@ -3,8 +3,9 @@ import {
   UseQueryOptions,
   UseQueryResult,
 } from "@tanstack/react-query";
-import { MovieAPI, MovieTypes } from "..";
+import * as MovieAPI from "../api";
 import { movieDataKeys } from "../key-factory";
+import * as MovieTypes from "../types";
 
 export const useGetMovieGenreList = (
   options?: UseQueryOptions<
@@ -19,5 +20,5 @@ export const useGetMovieGenreList = (
     Error,
     MovieTypes.MovieGenreListResult | undefined,
     readonly [string]
-  >(movieDataKeys.movieGenreList, MovieAPI.getMovieGenreList, options);
+  >(movieDataKeys.movieGenreList, () => MovieAPI.getMovieGenreList(), options);
 };

@@ -1,6 +1,7 @@
 import { Icon } from "@tarikfp/react-native-utils";
 import React from "react";
 import { Alert, Pressable, Text } from "react-native";
+import { showMessage } from "react-native-flash-message";
 import { ms } from "react-native-size-matters";
 import { useGetMovieDetailById } from "~api/movie";
 import { Badge } from "~components/badge";
@@ -48,6 +49,28 @@ export default function MovieDetailScreen({
   const removeMovieFromWishList = useMovieWishListStore(
     (state) => state.removeMovieFromWishList,
   );
+
+  const handleBookmarkIconPressed = () => {
+    if (data) {
+      if (!isInWishList) {
+        addMovieToWishList({ ...data, genre: route.params.genre });
+        showMessage({
+          type: "info",
+          message: `${data.original_title} movie has added to the wish list`,
+          autoHide: true,
+        });
+      } else {
+        removeMovieFromWishList(data.id);
+        showMessage({
+          type: "info",
+          message: `${data.original_title} movie has removed from the wish list`,
+          autoHide: true,
+        });
+      }
+    } else {
+      throw new Error("Data not found - handleBookmarkIconPressed");
+    }
+  };
 
   const isInWishList = wishListMovies.some((movie) => movie.id === data?.id);
 
@@ -105,14 +128,7 @@ export default function MovieDetailScreen({
             justifyContent="space-between"
             alignItems="center">
             <MovieTitleText>{data.original_title}</MovieTitleText>
-            <Pressable
-              onPress={() => {
-                if (!isInWishList) {
-                  addMovieToWishList({ ...data, genre: route.params.genre });
-                } else {
-                  removeMovieFromWishList(data.id);
-                }
-              }}>
+            <Pressable onPress={handleBookmarkIconPressed}>
               <Icon
                 disabled
                 {...MovieDetailHelpers.getBookmarkIconByCategory(

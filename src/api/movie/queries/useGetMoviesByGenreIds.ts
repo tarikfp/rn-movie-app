@@ -3,13 +3,13 @@ import {
   UseQueryOptions,
   UseQueryResult,
 } from "@tanstack/react-query";
-import { MovieAPI, MovieTypes } from "..";
+import * as MovieAPI from "../api";
 import { movieDataKeys } from "../key-factory";
-import { Genre } from "../types";
+import * as MovieTypes from "../types";
 
 export const useGetMoviesByGenreIds = (
   page: number,
-  genres: Array<Genre>,
+  genres: Array<MovieTypes.Genre>,
   options?: UseQueryOptions<
     Array<MovieTypes.MoviesByGenre> | undefined,
     Error,
