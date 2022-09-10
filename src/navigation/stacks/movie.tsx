@@ -39,7 +39,7 @@ const movieStackRoutesType: Array<
       headerTitleAlign: "center",
       ...Platform.select({
         android: TransitionPresets.BottomSheetAndroid,
-        ios: TransitionPresets.ModalSlideFromBottomIOS,
+        ios: TransitionPresets.ModalTransition,
       }),
     },
   },

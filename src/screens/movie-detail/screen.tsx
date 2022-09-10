@@ -105,7 +105,7 @@ export default function MovieDetailScreen({
         <GenericView
           backgroundColor={theme.colors.transparent}
           paddingHorizontal={8}
-          marginTop={top}
+          marginTop={Platform.OS === "android" ? top : undefined}
           flexDirection="row"
           justifyContent="space-between">
           <Pressable onPress={navigation.goBack}>
