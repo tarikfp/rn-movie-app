@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ActivityIndicatorProps, Platform } from "react-native";
 import { ms } from "react-native-size-matters";
-import styled from "~theme/styled-theme";
+import { styled } from "~theme";
 
 type Props = Pick<ActivityIndicatorProps, "size" | "color">;
 

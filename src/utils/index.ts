@@ -4,6 +4,8 @@ import { MOVIE_API_IMAGE_URL } from "react-native-dotenv";
 import { MMKV } from "react-native-mmkv";
 import { MovieTypes } from "../api/movie";
 
+export * as TestUtils from "./test";
+
 // https://developers.themoviedb.org/3/getting-started/images
 export const getImageSourceUri = (
   imageUri: string,

@@ -1,0 +1,152 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tests movie carousel component renders movie carousel correctly 1`] = `
+<View
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+>
+  <View
+    style={
+      Array [
+        Object {
+          "elevation": 2,
+          "shadowColor": "#000000",
+          "shadowOffset": Object {
+            "height": 3,
+            "width": 1,
+          },
+          "shadowOpacity": 0.8,
+          "shadowRadius": 2,
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "overflow": "hidden",
+          },
+          Array [
+            Object {
+              "borderRadius": 12,
+              "elevation": 1,
+              "height": 330,
+              "shadowOffset": Object {
+                "height": 0,
+                "width": 0,
+              },
+              "shadowOpacity": 0.75,
+              "shadowRadius": 5,
+              "width": 282.8571428571429,
+            },
+          ],
+        ]
+      }
+    >
+      <FastImageView
+        defaultSource={null}
+        height={330}
+        resizeMode="cover"
+        source={
+          Object {
+            "uri": "undefined/original/tmU7GeKVybMWFButWEGl2M4GeiP.jpg",
+          }
+        }
+        style={
+          Object {
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          }
+        }
+        width={282.8571428571429}
+      />
+    </View>
+  </View>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "rgba(35, 47, 72, 1)",
+          "fontFamily": "Poppins-Light",
+          "fontSize": 25.142857142857142,
+          "fontWeight": "400",
+          "marginTop": 12,
+        },
+      ]
+    }
+  >
+    The Godfather
+  </Text>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "justifyContent": "flex-start",
+          "marginTop": 12,
+        },
+      ]
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      disabled={true}
+      onPress={[Function]}
+      selectable={false}
+      style={
+        Array [
+          Object {
+            "color": "orange",
+            "fontSize": 20,
+          },
+          Object {},
+          Object {
+            "fontFamily": "Material Design Icons",
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          Object {},
+        ]
+      }
+      type="MaterialCommunityIcons"
+    >
+      󰓎
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "rgba(35, 47, 72, 1)",
+            "fontFamily": "Poppins-Light",
+            "fontSize": 18.857142857142858,
+            "fontWeight": "400",
+          },
+        ]
+      }
+    >
+       
+      8.70
+      /10 
+        
+      (
+      16534
+       reviews)
+    </Text>
+  </View>
+</View>
+`;

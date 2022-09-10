@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tests movie image component renders movie image correctly 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "elevation": 2,
+        "shadowColor": "#000000",
+        "shadowOffset": Object {
+          "height": 3,
+          "width": 1,
+        },
+        "shadowOpacity": 0.8,
+        "shadowRadius": 2,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "overflow": "hidden",
+        },
+        Array [
+          Object {
+            "borderRadius": 12,
+            "elevation": 1,
+            "height": 210,
+            "shadowOffset": Object {
+              "height": 0,
+              "width": 0,
+            },
+            "shadowOpacity": 0.75,
+            "shadowRadius": 5,
+            "width": 180,
+          },
+        ],
+      ]
+    }
+  >
+    <FastImageView
+      defaultSource={null}
+      height={210}
+      resizeMode="cover"
+      source={
+        Object {
+          "uri": "undefined/original/tmU7GeKVybMWFButWEGl2M4GeiP.jpg",
+        }
+      }
+      style={
+        Object {
+          "bottom": 0,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+        }
+      }
+      width={180}
+    />
+  </View>
+</View>
+`;

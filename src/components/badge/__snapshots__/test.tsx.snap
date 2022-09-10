@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tests badge component renders badge correctly 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#7C92FF",
+        "borderRadius": 16,
+        "height": 24,
+        "justifyContent": "center",
+        "marginRight": 6,
+        "marginTop": 6,
+        "minWidth": 105,
+      },
+    ]
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "backgroundColor": "#7C92FF",
+          "color": "#FFFFFF",
+          "fontFamily": "Poppins-Light",
+          "fontSize": 18.857142857142858,
+          "fontWeight": "400",
+        },
+      ]
+    }
+  >
+    test
+  </Text>
+</View>
+`;

@@ -11,6 +11,7 @@ import { MovieStackParamList } from "./navigation/types";
 import { default as ErrorBoundary } from "./screens/error-boundary";
 import { theme } from "./theme";
 import { initQueryClient } from "./utils";
+import "./utils/ignore-logs";
 
 const queryClient = initQueryClient();
 
