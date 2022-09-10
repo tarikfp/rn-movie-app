@@ -4,6 +4,10 @@
 
 This app's aim is to allow users to browse movies by their categories and see specific movie detail.
 
+## API Reference
+
+https://www.themoviedb.org/
+
 ## Some of the core libraries
 
 - Styled components
